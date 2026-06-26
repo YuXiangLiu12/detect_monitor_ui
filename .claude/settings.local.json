@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet publish *)",
+      "Bash(rm -f \"F:/Z_LYX_USER/项目资料/探伤终端/LeakMonitor/publish/LeakMonitor.dll\")",
+      "Bash(rm -f \"F:/Z_LYX_USER/项目资料/探伤终端/LeakMonitor/publish/LeakMonitor.exe\")"
+    ]
+  }
+}

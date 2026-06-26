@@ -1,0 +1,2 @@
+F:\Z_LYX_USER\项目资料\液漏检测终端\LeakMonitor-2.0\bin\Release\net8.0-windows\win-x64\publish\LeakMonitor.pdb
+F:\Z_LYX_USER\项目资料\液漏检测终端\LeakMonitor-2.0\bin\Release\net8.0-windows\win-x64\publish\LeakMonitor.exe

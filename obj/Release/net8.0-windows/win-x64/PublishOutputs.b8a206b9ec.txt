@@ -1,0 +1,6 @@
+F:\Z_LYX_USER\项目资料\液漏检测终端\LeakMonitor-2.0\publish\D3DCompiler_47_cor3.dll
+F:\Z_LYX_USER\项目资料\液漏检测终端\LeakMonitor-2.0\publish\PenImc_cor3.dll
+F:\Z_LYX_USER\项目资料\液漏检测终端\LeakMonitor-2.0\publish\PresentationNative_cor3.dll
+F:\Z_LYX_USER\项目资料\液漏检测终端\LeakMonitor-2.0\publish\vcruntime140_cor3.dll
+F:\Z_LYX_USER\项目资料\液漏检测终端\LeakMonitor-2.0\publish\wpfgfx_cor3.dll
+F:\Z_LYX_USER\项目资料\液漏检测终端\LeakMonitor-2.0\publish\LeakMonitor.exe

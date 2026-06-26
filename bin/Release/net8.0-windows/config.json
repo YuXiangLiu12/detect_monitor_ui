@@ -1,0 +1,22 @@
+{
+    "serial": {
+        "port": "auto",
+        "baudrate": 115200,
+        "databits": 8,
+        "parity": "N",
+        "stopbits": "1"
+    },
+    "protocol": {
+        "protocol_type": "binary"
+    },
+    "ui": {
+        "window_title": "核电站泄漏监测系统 v1.0",
+        "chart_history_seconds": 60,
+        "poll_interval_ms": 100,
+        "alert_threshold_meters": 100.0
+    },
+    "logging": {
+        "level": "INFO",
+        "file": "logs/leak_monitor.log"
+    }
+}
