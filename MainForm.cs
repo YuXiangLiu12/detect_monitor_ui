@@ -841,8 +841,13 @@ public class MainForm : Form
             {
                 var data = envelope.Data;
                 _txtRawFrame.Text = data.RawFrame;
-                AppendHistoryLog(data);
-                _history.Add(data);
+
+                // 只有报警数据才存入历史和表格，正常数据仅更新实时面板
+                if (data.AlarmCode != 0)
+                {
+                    AppendHistoryLog(data);
+                    _history.Add(data);
+                }
 
                 // ---- 报警状态更新（当前仅映射一道 1 区）----
                 _currentAlarmCode = data.AlarmCode;
