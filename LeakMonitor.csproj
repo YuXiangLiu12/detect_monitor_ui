@@ -6,11 +6,32 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon />
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.IO.Ports" Version="10.0.8" />
   </ItemGroup>
 
+  <!-- 发布后清理：删除 WinForms 应用不需要的 WPF native DLL 和语言包 -->
+  <Target Name="CleanPublishOutput" AfterTargets="Publish">
+    <ItemGroup>
+      <FilesToDelete Include="$(PublishDir)D3DCompiler_47_cor3.dll" />
+      <FilesToDelete Include="$(PublishDir)PenImc_cor3.dll" />
+      <FilesToDelete Include="$(PublishDir)PresentationNative_cor3.dll" />
+      <FilesToDelete Include="$(PublishDir)vcruntime140_cor3.dll" />
+      <FilesToDelete Include="$(PublishDir)wpfgfx_cor3.dll" />
+    </ItemGroup>
+    <Delete Files="@(FilesToDelete)" />
+    <RemoveDir Directories="$(PublishDir)cs;$(PublishDir)de;$(PublishDir)es;$(PublishDir)fr;$(PublishDir)it;$(PublishDir)ja;$(PublishDir)ko;$(PublishDir)pl;$(PublishDir)pt-BR;$(PublishDir)ru;$(PublishDir)tr;$(PublishDir)zh-Hans;$(PublishDir)zh-Hant" />
+    <Message Importance="high" Text="已清理 WPF native DLL 和语言包，输出目录仅有 LeakMonitor.exe" />
+  </Target>
 
 </Project>

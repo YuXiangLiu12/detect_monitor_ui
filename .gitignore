@@ -1,2 +1,4 @@
-
 publish/
+bin/
+obj/
+*.rar
