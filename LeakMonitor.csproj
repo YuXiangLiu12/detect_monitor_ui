@@ -13,25 +13,10 @@
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.IO.Ports" Version="10.0.8" />
   </ItemGroup>
-
-  <!-- 发布后清理：删除 WinForms 应用不需要的 WPF native DLL 和语言包
-      注意：保留 vcruntime140_cor3.dll（VC++运行时）和 D3DCompiler_47_cor3.dll，
-      它们在全新 Windows 系统上可能是必需的 -->
-  <Target Name="CleanPublishOutput" AfterTargets="Publish">
-    <ItemGroup>
-      <FilesToDelete Include="$(PublishDir)PenImc_cor3.dll" />
-      <FilesToDelete Include="$(PublishDir)PresentationNative_cor3.dll" />
-      <FilesToDelete Include="$(PublishDir)wpfgfx_cor3.dll" />
-    </ItemGroup>
-    <Delete Files="@(FilesToDelete)" />
-    <RemoveDir Directories="$(PublishDir)cs;$(PublishDir)de;$(PublishDir)es;$(PublishDir)fr;$(PublishDir)it;$(PublishDir)ja;$(PublishDir)ko;$(PublishDir)pl;$(PublishDir)pt-BR;$(PublishDir)ru;$(PublishDir)tr;$(PublishDir)zh-Hans;$(PublishDir)zh-Hant" />
-    <Message Importance="high" Text="已清理 WPF native DLL 和语言包" />
-  </Target>
 
 </Project>
