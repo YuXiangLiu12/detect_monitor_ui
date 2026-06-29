@@ -137,6 +137,8 @@ public class MainForm : Form
                          _rightSplit.Height * 35 / 100));
 
             // 上下分栏：下方日志区初始较小
+            _horizSplit.Panel1MinSize = Math.Min(_horizSplit.Height * 55 / 100, S(250));
+            _horizSplit.Panel2MinSize = Math.Min(_horizSplit.Height * 15 / 100, S(100));
             var horizDist = _horizSplit.Height - S(140);
             _horizSplit.SplitterDistance = Math.Max(_horizSplit.Panel1MinSize,
                 Math.Min(_horizSplit.Height - _horizSplit.Panel2MinSize, horizDist));
@@ -196,13 +198,14 @@ public class MainForm : Form
         mainLayout.Controls.Add(titlePanel, 0, 0);
 
         // ---- Row 1: 水平 SplitContainer（上：左右分栏主体 / 下：事件日志+原始帧） ----
+        // 注意：Panel1MinSize/Panel2MinSize 不能在对象初始化器中设置！
+        // 此时控件尚未布局（Width≈100），设大值会导致 SplitterDistance 校验失败，
+        // 在小屏/高 DPI 设备上直接抛出 InvalidOperationException
         var horizSplit = new SplitContainer
         {
             Dock = DockStyle.Fill,
             Orientation = Orientation.Horizontal,
-            SplitterWidth = S(5),
-            Panel1MinSize = S(250),
-            Panel2MinSize = S(100)
+            SplitterWidth = S(5)
         };
         _horizSplit = horizSplit;
         mainLayout.Controls.Add(horizSplit, 0, 1);
