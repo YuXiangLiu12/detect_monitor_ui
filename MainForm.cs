@@ -117,21 +117,29 @@ public class MainForm : Form
 
         BuildLayout();
 
-        // 窗体加载完成后设置分栏参数（此时控件已有实际尺寸，避免布局校验异常）
+        // 窗体加载完成后设置分栏参数（此时控件已有实际尺寸）
+        // 注意：min size 必须留出余地，否则在小屏/高 DPI 设备上会因
+        //       "SplitterDistance 必须在 Panel1MinSize 和 Width-Panel2MinSize 之间" 而崩溃
         Load += (s, e) =>
         {
-            // 左右分栏：左侧占 55%
-            _splitMain.Panel1MinSize = S(300);
-            _splitMain.Panel2MinSize = S(250);
-            _splitMain.SplitterDistance = _splitMain.Width * 55 / 100;
+            // 左右分栏：左侧占 55%，min size 按比例而非绝对值确保兼容小屏幕
+            _splitMain.Panel1MinSize = Math.Min(_splitMain.Width * 35 / 100, S(300));
+            _splitMain.Panel2MinSize = Math.Min(_splitMain.Width * 25 / 100, S(250));
+            _splitMain.SplitterDistance = Math.Max(_splitMain.Panel1MinSize,
+                Math.Min(_splitMain.Width - _splitMain.Panel2MinSize,
+                         _splitMain.Width * 55 / 100));
 
             // 右侧上下分栏：上方实时状态 ~35%
-            _rightSplit.Panel1MinSize = S(100);
-            _rightSplit.Panel2MinSize = S(120);
-            _rightSplit.SplitterDistance = _rightSplit.Height * 35 / 100;
+            _rightSplit.Panel1MinSize = Math.Min(_rightSplit.Height * 20 / 100, S(100));
+            _rightSplit.Panel2MinSize = Math.Min(_rightSplit.Height * 25 / 100, S(120));
+            _rightSplit.SplitterDistance = Math.Max(_rightSplit.Panel1MinSize,
+                Math.Min(_rightSplit.Height - _rightSplit.Panel2MinSize,
+                         _rightSplit.Height * 35 / 100));
 
             // 上下分栏：下方日志区初始较小
-            _horizSplit.SplitterDistance = _horizSplit.Height - S(140);
+            var horizDist = _horizSplit.Height - S(140);
+            _horizSplit.SplitterDistance = Math.Max(_horizSplit.Panel1MinSize,
+                Math.Min(_horizSplit.Height - _horizSplit.Panel2MinSize, horizDist));
         };
     }
 
