@@ -904,21 +904,21 @@ public class MainForm : Form
         }
         else
         {
-            // 报警状态 —— 红色大字
+            // 报警状态 —— 红色大字，显示"一道 1区"前缀
             string reason;
             if (isPipeLeak && isTankFull)
-                reason = "管道泄漏 + 储液槽已满";
+                reason = $"一道 1区 {data.Distance:F1}米处 管道泄漏\n一道 1区 储液槽已满";
             else if (isPipeLeak)
-                reason = "管道泄漏";
+                reason = $"一道 1区 {data.Distance:F1}米处 管道泄漏";
             else if (isTankFull)
-                reason = "储液槽已满";
+                reason = "一道 1区 储液槽已满";
             else
-                reason = $"未知报警 (code={data.AlarmCode})";
+                reason = $"一道 1区 未知报警 (code={data.AlarmCode})";
 
             _lblRightStatus.Text = reason;
             _lblRightStatus.ForeColor = Color.Red;
 
-            // 管道泄漏时显示液漏距离
+            // 管道泄漏时显示距离（大号红色字体）
             if (isPipeLeak)
             {
                 _lblRightDistance.Text = $"液漏距离: {data.Distance:F1} 米";
@@ -961,15 +961,15 @@ public class MainForm : Form
             bool isTankFull = (data.AlarmCode & 2) != 0;
             string reason;
             if (isPipeLeak && isTankFull)
-                reason = "管道泄漏 + 储液槽已满";
+                reason = $"{data.Distance:F1}米处 管道泄漏, 储液槽已满";
             else if (isPipeLeak)
-                reason = $"管道泄漏 ({data.Distance:F1}m)";
+                reason = $"{data.Distance:F1}米处 管道泄漏";
             else if (isTankFull)
                 reason = "储液槽已满";
             else
                 reason = $"未知 (code={data.AlarmCode})";
 
-            // 报警站点（当前硬编码一道1区）
+            // 报警站点
             string station = "一道 1区";
 
             _gridHistory.Rows.Add(data.Timestamp, station, reason);
@@ -1037,9 +1037,9 @@ public class MainForm : Form
                 bool isTankFull = (item.AlarmCode & 2) != 0;
                 string reason;
                 if (isPipeLeak && isTankFull)
-                    reason = "管道泄漏 + 储液槽已满";
+                    reason = $"{item.Distance:F1}米处 管道泄漏, 储液槽已满";
                 else if (isPipeLeak)
-                    reason = "管道泄漏";
+                    reason = $"{item.Distance:F1}米处 管道泄漏";
                 else if (isTankFull)
                     reason = "储液槽已满";
                 else
