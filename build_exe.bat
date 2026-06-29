@@ -20,7 +20,10 @@ if exist "bin\Release\" rmdir /s /q "bin\Release"
 echo [2/2] 发布为独立可执行文件（自包含部署）...
 echo   正在编译打包，请耐心等待...
 
-dotnet publish -c Release -o publish
+dotnet publish -c Release -r win-x64 --self-contained true ^
+    -p:DebugType=none ^
+    -p:DebugSymbols=false ^
+    -o publish
 
 if %errorlevel% neq 0 (
     echo.
@@ -32,12 +35,13 @@ if %errorlevel% neq 0 (
 echo.
 echo ========================================
 echo   打包完成！
-echo   输出文件: publish\LeakMonitor.exe
+echo   输出目录: publish\
+echo   可执行文件: publish\LeakMonitor.exe
 echo ========================================
 echo.
 echo 注意事项:
-echo   1. LeakMonitor.exe 是自包含单文件程序，无需安装 .NET 运行时
-echo   2. 配置文件 config.json 需与 exe 放在同一目录
+echo   1. 将整个 publish 文件夹拷贝到目标电脑即可运行
+echo   2. 无需安装 .NET 运行时（已自包含）
 echo   3. 首次运行可能需要 Windows 防火墙授权（串口访问）
 echo.
 pause
